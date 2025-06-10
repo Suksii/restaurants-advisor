@@ -12,10 +12,10 @@ import UserIcon from '@/icons/UserIcon.vue'
       <RouterLink to="/admin/add-restaurant" class="text-white text-lg cursor-pointer"
         >Add restaurant</RouterLink
       >
-      <div class="flex items-center gap-2 cursor-pointer">
+      <RouterLink to="/login" class="flex items-center gap-2 cursor-pointer">
         <UserIcon class="text-white" />
-        <RouterLink to="/login" class="text-lg text-white">Login</RouterLink>
-      </div>
+        <p class="text-lg text-white">Login</p>
+      </RouterLink>
     </div>
   </div>
 </template>
