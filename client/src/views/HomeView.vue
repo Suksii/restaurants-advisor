@@ -2,6 +2,18 @@
 import Navbar from '@/components/Navbar.vue'
 import bgImage from '@/assets/restaurant-bg.jpeg'
 import SearchIcon from '@/icons/SearchIcon.vue'
+import RestaurantCard from '@/components/RestaurantCard.vue'
+
+const restaurant = {
+  id: 1,
+  image: bgImage,
+  name: 'La Tavola',
+  category: 'Italijan kitchen',
+  location: 'Podgorica',
+  rating: 4.2,
+  description:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+}
 </script>
 
 <template>
@@ -25,5 +37,8 @@ import SearchIcon from '@/icons/SearchIcon.vue'
         <SearchIcon class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
       </div>
     </div>
+  </div>
+  <div class="flex justify-center m-24">
+    <RestaurantCard :restaurant="restaurant" />
   </div>
 </template>
