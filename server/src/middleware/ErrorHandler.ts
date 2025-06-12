@@ -6,7 +6,7 @@ export const errorHandler = (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Response | undefined => {
   let statusCode = 500;
   let message = "Internal Server Error";
   if (err instanceof CustomError) {
