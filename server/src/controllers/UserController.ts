@@ -1,5 +1,5 @@
 import User from "../models/User";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcryptjs";
 
 type RegisterUserRequestBody = {
@@ -8,10 +8,11 @@ type RegisterUserRequestBody = {
   password: string;
 };
 
-const registerUser = async (
+export const registerUser = async (
   req: Request<unknown, unknown, RegisterUserRequestBody>,
-  res: Response
-) => {
+  res: Response,
+  next: NextFunction
+): Promise<Response | void> => {
   const { username, email, password } = req.body;
   try {
     const emailExists = await User.findOne({ email });
@@ -23,7 +24,7 @@ const registerUser = async (
       return res.status(400).json({ message: "Email already in use!" });
     }
     if (usernameExists) {
-      return res.status(400).json({ message: "Email already in use!" });
+      return res.status(400).json({ message: "Username already in use!" });
     }
 
     const newUser = await User.create({
@@ -35,7 +36,6 @@ const registerUser = async (
       .status(201)
       .json({ user: newUser, message: "User registered successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error:", error });
-    console.error("Internal server error:", error);
+    next(error);
   }
 };
