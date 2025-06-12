@@ -1,31 +1,34 @@
-import express from "express";
-import cors from "cors";
-import connectDB from "./database/connection";
-import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import cors from "cors";
+import express, { Request, Response } from "express";
+import dotenv from "dotenv";
+import connectDB from "./database/connection";
+import { userRoute } from "./src/routes/UserRoute";
+import { errorHandler } from "./src/middleware/ErrorHandler";
 
 dotenv.config();
 
 const app = express();
 
-app.use(
-  cors({
-    origin: process.env.CLIENT_ORIGIN,
-    credentials: true,
-  })
-);
 app.use(express.json());
+app.use(cors({ origin: process.env.CLIENT_ORIGIN, credentials: true }));
 app.use(cookieParser());
 
 connectDB();
 
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "Hello!" });
+app.get("/", async (req: Request, res: Response) => {
+  res.status(200).send("Server Running");
+});
+
+app.use("/api/users", userRoute);
+
+app.use((err: any, req: Request, res: Response, next: express.NextFunction) => {
+  errorHandler(err, req, res, next);
 });
 
 app.listen(process.env.PORT, () => {
   try {
-    console.log("Server is running on port: ", process.env.PORT);
+    console.log("Server is running on port:", process.env.PORT);
   } catch (error) {
     console.error(error);
   }

@@ -10,10 +10,10 @@ type RegisterUserRequestBody = {
 };
 
 export const registerUser = async (
-  req: Request<unknown, unknown, RegisterUserRequestBody>,
+  req: Request<{}, {}, RegisterUserRequestBody>,
   res: Response,
   next: NextFunction
-): Promise<Response | void> => {
+): Promise<void> => {
   const { username, email, password } = req.body;
   try {
     const emailExists = await User.findOne({ email });
