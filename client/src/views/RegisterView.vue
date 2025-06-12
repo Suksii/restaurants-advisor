@@ -6,6 +6,7 @@ import MailIcon from '@/icons/MailIcon.vue'
 import axios from 'axios'
 import { reactive } from 'vue'
 import type { RegisterData } from '@/utils/types'
+import { getErrorMessage } from '@/utils/errorHandler'
 
 const userData: RegisterData = reactive({
   username: '',
@@ -22,11 +23,7 @@ async function register(): Promise<void> {
     })
     console.log(response.data)
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error(error.response?.data?.message)
-    } else {
-      console.error('An unexpected error occurred:', error)
-    }
+    console.error(getErrorMessage(error))
   }
 }
 </script>
