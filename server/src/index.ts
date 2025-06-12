@@ -4,6 +4,7 @@ import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import connectDB from "../database/connection";
 import { userRoute } from "./routes/UserRoute";
+import { errorHandler } from "./middleware/ErrorHandler";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.get("/", async (req: Request, res: Response) => {
 });
 
 app.use("/api/users", userRoute);
+app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
   try {

@@ -1,6 +1,7 @@
 import User from "../models/User";
 import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcryptjs";
+import { CustomError } from "../../utils/customError";
 
 type RegisterUserRequestBody = {
   username: string;
@@ -21,10 +22,10 @@ export const registerUser = async (
     const hashedPassword = bcrypt.hashSync(password, salt);
 
     if (emailExists) {
-      return res.status(400).json({ message: "Email already in use!" });
+      throw new CustomError("Email already in use", 400);
     }
     if (usernameExists) {
-      return res.status(400).json({ message: "Username already in use!" });
+      throw new CustomError("Username already in use", 400);
     }
 
     const newUser = await User.create({
