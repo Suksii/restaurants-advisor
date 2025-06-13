@@ -27,8 +27,6 @@ async function login() {
       },
       { withCredentials: true },
     )
-    console.log(data)
-
     notificationStore.notifySuccess(data.message || 'Login successful')
     router.push('/')
   } catch (error) {
