@@ -51,7 +51,7 @@ export const loginUser = async (
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ username });
-    if (!user) throw new CustomError("Username doesn't exist", 404);
+    if (!user) throw new CustomError("User doesn't exist", 404);
 
     const passMatch = bcrypt.compareSync(password, user.password);
     if (!passMatch) throw new CustomError("Password isn't valid", 406);

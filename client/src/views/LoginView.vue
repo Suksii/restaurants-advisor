@@ -2,6 +2,40 @@
 import LockIcon from '@/icons/LockIcon.vue'
 import loginBg from '../assets/loginbg.jpg'
 import UserIcon from '@/icons/UserIcon.vue'
+import axios from 'axios'
+import { baseUrl } from '@/utils/constants'
+import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import { useNotificationStore } from '@/stores/notificationStore'
+import { getErrorMessage } from '@/utils/errorHandler'
+
+const router = useRouter()
+const notificationStore = useNotificationStore()
+
+const loginData = reactive({
+  username: '',
+  password: '',
+})
+
+async function login() {
+  try {
+    const { data } = await axios.post(
+      `${baseUrl}/users/login`,
+      {
+        username: loginData.username,
+        password: loginData.password,
+      },
+      { withCredentials: true },
+    )
+    console.log(data)
+
+    notificationStore.notifySuccess(data.message || 'Login successful')
+    router.push('/')
+  } catch (error) {
+    notificationStore.notifyError(getErrorMessage(error))
+    console.error(getErrorMessage(error))
+  }
+}
 </script>
 
 <template>
@@ -13,14 +47,19 @@ import UserIcon from '@/icons/UserIcon.vue'
       <h2 class="text-white uppercase text-2xl text-center tracking-wider font-semibold mb-6">
         Sign in here
       </h2>
-      <form class="flex flex-col gap-6">
+      <form @submit.prevent="login" class="flex flex-col gap-6">
         <div class="flex flex-col gap-1">
           <label class="text-white text-sm">Username</label>
           <div class="relative">
             <UserIcon
               class="absolute left-3 top-1/2 transform -translate-y-1/2 text-white w-5 h-5"
             />
-            <input type="text" placeholder="Enter your username" class="register-input" />
+            <input
+              type="text"
+              placeholder="Enter your username"
+              v-model="loginData.username"
+              class="register-input"
+            />
           </div>
         </div>
         <div class="flex flex-col gap-1">
@@ -29,7 +68,12 @@ import UserIcon from '@/icons/UserIcon.vue'
             <LockIcon
               class="absolute left-3 top-1/2 transform -translate-y-1/2 text-white w-5 h-5"
             />
-            <input type="password" placeholder="Enter your password" class="register-input" />
+            <input
+              type="password"
+              placeholder="Enter your password"
+              v-model="loginData.password"
+              class="register-input"
+            />
           </div>
         </div>
         <button type="submit" class="register-button">Login</button>

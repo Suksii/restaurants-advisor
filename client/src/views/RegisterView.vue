@@ -21,11 +21,15 @@ const notificationStore = useNotificationStore()
 
 async function register(): Promise<void> {
   try {
-    const { data } = await axios.post(`${baseUrl}/users/register`, {
-      username: userData.username,
-      email: userData.email,
-      password: userData.password,
-    })
+    const { data } = await axios.post(
+      `${baseUrl}/users/register`,
+      {
+        username: userData.username,
+        email: userData.email,
+        password: userData.password,
+      },
+      { withCredentials: true },
+    )
     notificationStore.notifySuccess(data.message || 'User registered successfully')
     router.push('/')
   } catch (error) {

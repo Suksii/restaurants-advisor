@@ -5,4 +5,5 @@ import Notification from './components/Notification.vue'
 
 <template>
   <RouterView />
+  <Notification />
 </template>
