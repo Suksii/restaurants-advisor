@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { mongoUri } from "../utils/constants";
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI as string);
+    await mongoose.connect(mongoUri as string);
     console.log("Database connected successfully");
   } catch (error) {
     console.error("Connection failed:", error);
