@@ -7,22 +7,29 @@ import axios from 'axios'
 import { reactive } from 'vue'
 import type { RegisterData } from '@/utils/types'
 import { getErrorMessage } from '@/utils/errorHandler'
+import { useRouter } from 'vue-router'
+import { baseUrl } from '@/utils/constants'
+import { useNotificationStore } from '@/stores/notificationStore'
 
 const userData: RegisterData = reactive({
   username: '',
   email: '',
   password: '',
 })
+const router = useRouter()
+const notificationStore = useNotificationStore()
 
 async function register(): Promise<void> {
   try {
-    const response = await axios.post('http://localhost:3000/api/users/register', {
+    const { data } = await axios.post(`${baseUrl}/users/register`, {
       username: userData.username,
       email: userData.email,
       password: userData.password,
     })
-    console.log(response.data)
+    notificationStore.notifySuccess(data.message || 'User registered successfully')
+    router.push('/')
   } catch (error) {
+    notificationStore.notifyError(getErrorMessage(error))
     console.error(getErrorMessage(error))
   }
 }
