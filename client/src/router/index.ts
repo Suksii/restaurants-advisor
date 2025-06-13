@@ -1,3 +1,4 @@
+import { getCurrentUser } from '@/services/auth'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -20,6 +21,26 @@ const router = createRouter({
       component: () => import('../views/LoginView.vue'),
     },
   ],
+})
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.meta.requiresAuth
+  const requiresGuest = to.meta.requiresGuest
+
+  try {
+    await getCurrentUser()
+
+    if (requiresGuest) {
+      return next('/')
+    }
+
+    next()
+  } catch (error) {
+    if (requiresAuth) {
+      return next('/login')
+    }
+
+    next()
+  }
 })
 
 export default router

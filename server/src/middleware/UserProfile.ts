@@ -1,10 +1,10 @@
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 import { CustomError } from "../../utils/customError";
 import { jwtSecret } from "../../utils/constants";
 import User from "../models/User";
 
-type AuthRequest = Request & { user: any };
+type AuthRequest = Request & { user?: any };
 
 export const authenticateUser = async (
   req: AuthRequest,
