@@ -1,5 +1,18 @@
 <script setup lang="ts">
 import UserIcon from '@/icons/UserIcon.vue'
+import { getCurrentUser, logout } from '@/services/auth'
+import { onMounted, ref } from 'vue'
+
+const user = ref(null)
+
+onMounted(async () => {
+  try {
+    const data = await getCurrentUser()
+    user.value = data
+  } catch (error) {
+    user.value = null
+  }
+})
 </script>
 
 <template>
@@ -12,9 +25,14 @@ import UserIcon from '@/icons/UserIcon.vue'
       <RouterLink to="/admin/add-restaurant" class="text-white text-lg cursor-pointer"
         >Add restaurant</RouterLink
       >
-      <RouterLink to="/login" class="flex items-center gap-2 cursor-pointer">
+      <RouterLink
+        v-if="user"
+        to="/login"
+        class="flex items-center gap-2 cursor-pointer"
+        @click="logout"
+      >
         <UserIcon class="text-white" />
-        <p class="text-lg text-white">Login</p>
+        <p v-if="user" class="text-lg text-white">Logout</p>
       </RouterLink>
     </div>
   </div>

@@ -47,7 +47,7 @@ export const loginUser = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ username });
@@ -73,6 +73,18 @@ export const loginUser = async (
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .json({ user, message: "Login successful" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const logoutUser = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
+  try {
+    res.clearCookie("token").json({ message: "Logged out" });
   } catch (error) {
     next(error);
   }
