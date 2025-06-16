@@ -4,6 +4,7 @@ import bgImage from '@/assets/restaurant-bg.jpeg'
 import SearchIcon from '@/icons/SearchIcon.vue'
 import RestaurantCard from '@/components/RestaurantCard.vue'
 import CloseIcon from '@/icons/CloseIcon.vue'
+import Modal from '@/components/Modal.vue'
 
 const restaurant = {
   id: 1,
@@ -39,7 +40,7 @@ const restaurant = {
           class="w-full py-3 px-12 rounded-full bg-white/90 text-gray-900 placeholder:text-gray-500 shadow-lg focus:outline-none focus:ring-2 focus:ring-black transition duration-300"
         />
         <SearchIcon class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
-        <CloseIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"/>
+        <CloseIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer" />
       </div>
     </div>
   </div>
