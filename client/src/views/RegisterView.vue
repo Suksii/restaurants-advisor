@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import LockIcon from '@/icons/LockIcon.vue'
+import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import registerBg from '../assets/restaurant-bg.jpeg'
+import LockIcon from '@/icons/LockIcon.vue'
 import UserIcon from '@/icons/UserIcon.vue'
 import MailIcon from '@/icons/MailIcon.vue'
-import axios from 'axios'
-import { reactive } from 'vue'
 import type { RegisterData } from '@/utils/types'
 import { getErrorMessage } from '@/utils/errorHandler'
-import { useRouter } from 'vue-router'
-import { baseUrl } from '@/utils/constants'
 import { useNotificationStore } from '@/stores/notificationStore'
+import { useUserStore } from '@/stores/userStore'
 
 const userData: RegisterData = reactive({
   username: '',
@@ -18,19 +17,16 @@ const userData: RegisterData = reactive({
 })
 const router = useRouter()
 const notificationStore = useNotificationStore()
+const userStore = useUserStore()
 
 async function register(): Promise<void> {
   try {
-    const { data } = await axios.post(
-      `${baseUrl}/users/register`,
-      {
-        username: userData.username,
-        email: userData.email,
-        password: userData.password,
-      },
-      { withCredentials: true },
-    )
-    notificationStore.notifySuccess(data.message || 'User registered successfully')
+    const user = await userStore.registerUser({
+      username: userData.username,
+      email: userData.email,
+      password: userData.password,
+    })
+    notificationStore.notifySuccess(user.message || 'User registered successfully')
     router.push('/')
   } catch (error) {
     notificationStore.notifyError(getErrorMessage(error))

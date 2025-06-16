@@ -2,15 +2,15 @@
 import LockIcon from '@/icons/LockIcon.vue'
 import loginBg from '../assets/loginbg.jpg'
 import UserIcon from '@/icons/UserIcon.vue'
-import axios from 'axios'
-import { baseUrl } from '@/utils/constants'
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useNotificationStore } from '@/stores/notificationStore'
 import { getErrorMessage } from '@/utils/errorHandler'
+import { useUserStore } from '@/stores/userStore'
 
 const router = useRouter()
 const notificationStore = useNotificationStore()
+const userStore = useUserStore()
 
 const loginData = reactive({
   username: '',
@@ -19,15 +19,11 @@ const loginData = reactive({
 
 async function login() {
   try {
-    const { data } = await axios.post(
-      `${baseUrl}/users/login`,
-      {
-        username: loginData.username,
-        password: loginData.password,
-      },
-      { withCredentials: true },
-    )
-    notificationStore.notifySuccess(data.message || 'Login successful')
+    const user = await userStore.loginUser({
+      username: loginData.username,
+      password: loginData.password,
+    })
+    notificationStore.notifySuccess(user.message || 'Login successful')
     router.push('/')
   } catch (error) {
     notificationStore.notifyError(getErrorMessage(error))
