@@ -19,7 +19,7 @@ const router = useRouter()
 const notificationStore = useNotificationStore()
 const userStore = useUserStore()
 
-async function register(): Promise<void> {
+async function handleRegister(): Promise<void> {
   try {
     const user = await userStore.registerUser({
       username: userData.username,
@@ -27,7 +27,7 @@ async function register(): Promise<void> {
       password: userData.password,
     })
     notificationStore.notifySuccess(user.message || 'User registered successfully')
-    router.push('/')
+    router.push('/login')
   } catch (error) {
     notificationStore.notifyError(getErrorMessage(error))
     console.error(getErrorMessage(error))
@@ -44,7 +44,7 @@ async function register(): Promise<void> {
       <h2 class="text-white uppercase text-2xl text-center tracking-wider font-semibold mb-6">
         Sign up here
       </h2>
-      <form class="flex flex-col gap-6" @submit.prevent="register">
+      <form class="flex flex-col gap-6" @submit.prevent="handleRegister">
         <div class="flex flex-col gap-1">
           <label class="text-white text-sm">Username</label>
           <div class="relative">
@@ -89,7 +89,7 @@ async function register(): Promise<void> {
             />
           </div>
         </div>
-        <button type="submit" class="register-button">Register</button>
+        <button type="submit" class="button register-button">Register</button>
         <p class="text-center text-white/80 text-sm mt-4">
           Already have an account?
           <RouterLink

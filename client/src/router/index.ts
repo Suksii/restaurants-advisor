@@ -1,5 +1,5 @@
-import { getCurrentUser } from '@/services/auth'
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores/userStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,12 +23,12 @@ const router = createRouter({
   ],
 })
 router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore()
   const requiresAuth = to.meta.requiresAuth
   const requiresGuest = to.meta.requiresGuest
 
   try {
-    await getCurrentUser()
-
+    await userStore.fetchCurrentUser()
     if (requiresGuest) {
       return next('/')
     }

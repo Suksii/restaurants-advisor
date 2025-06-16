@@ -9,6 +9,7 @@ type RegisterUserRequestBody = {
   username: string;
   email: string;
   password: string;
+  role: string;
 };
 
 export const registerUser = async (
@@ -16,7 +17,7 @@ export const registerUser = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { username, email, password } = req.body;
+  const { username, email, password, role } = req.body;
   try {
     const emailExists = await User.findOne({ email });
     const usernameExists = await User.findOne({ username });
@@ -34,6 +35,7 @@ export const registerUser = async (
       username,
       email,
       password: hashedPassword,
+      role: role || "user",
     });
     res
       .status(201)
@@ -60,9 +62,10 @@ export const loginUser = async (
       {
         id: user._id,
         username: user.username,
+        role: user.role,
       },
       jwtSecret as string,
-      {}
+      { expiresIn: "1d" }
     );
 
     res

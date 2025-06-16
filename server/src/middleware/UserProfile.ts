@@ -6,6 +6,14 @@ import User from "../models/User";
 
 type AuthRequest = Request & { user?: any };
 
+type DedodedToken = {
+  id: string;
+  role: "user" | "admin" | "guest";
+  username: string;
+  iat: number;
+  exp: number;
+};
+
 export const authenticateUser = async (
   req: AuthRequest,
   res: Response,
@@ -15,7 +23,7 @@ export const authenticateUser = async (
     const { token } = req.cookies;
     if (!token) throw new CustomError("Unauthorized - No token");
 
-    const decoded: any = jwt.verify(token, jwtSecret);
+    const decoded: any = jwt.verify(token, jwtSecret) as DedodedToken;
 
     console.log(decoded);
 

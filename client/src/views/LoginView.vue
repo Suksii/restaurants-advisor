@@ -17,7 +17,7 @@ const loginData = reactive({
   password: '',
 })
 
-async function login() {
+async function handleLogin() {
   try {
     const user = await userStore.loginUser({
       username: loginData.username,
@@ -41,7 +41,7 @@ async function login() {
       <h2 class="text-white uppercase text-2xl text-center tracking-wider font-semibold mb-6">
         Sign in here
       </h2>
-      <form @submit.prevent="login" class="flex flex-col gap-6">
+      <form @submit.prevent="handleLogin" class="flex flex-col gap-6">
         <div class="flex flex-col gap-1">
           <label class="text-white text-sm">Username</label>
           <div class="relative">
@@ -70,7 +70,7 @@ async function login() {
             />
           </div>
         </div>
-        <button type="submit" class="register-button">Login</button>
+        <button type="submit" class="mt-4 w-full button register-button">Login</button>
         <p class="text-center text-white/80 text-sm mt-4">
           Don't have an account?
           <RouterLink

@@ -4,6 +4,12 @@
   @apply w-full pl-10 pr-4 py-2 rounded-md bg-white/10 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-yellow-400;
 }
 
+.button {
+  @apply py-2 rounded-md text-center font-semibold transition-colors duration-300 cursor-pointer;
+}
 .register-button {
-  @apply mt-4 w-full py-2 rounded-md bg-yellow-500 text-black font-semibold hover:bg-yellow-400 transition-colors duration-300 cursor-pointer;
+  @apply bg-yellow-500 text-black hover:bg-yellow-400;
+}
+.logout-button {
+  @apply bg-red-600 text-black hover:bg-red-700;
 }
