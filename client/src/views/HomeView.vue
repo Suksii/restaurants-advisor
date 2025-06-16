@@ -5,6 +5,7 @@ import SearchIcon from '@/icons/SearchIcon.vue'
 import RestaurantCard from '@/components/RestaurantCard.vue'
 import CloseIcon from '@/icons/CloseIcon.vue'
 import Modal from '@/components/Modal.vue'
+import ProfileContent from '@/components/contents/ProfileContent.vue'
 
 const restaurant = {
   id: 1,
@@ -47,4 +48,7 @@ const restaurant = {
   <div class="flex justify-center m-24">
     <RestaurantCard :restaurant="restaurant" />
   </div>
+  <Modal title="Your profile">
+    <ProfileContent />
+  </Modal>
 </template>

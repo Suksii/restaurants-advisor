@@ -55,7 +55,7 @@ async function handleRegister(): Promise<void> {
               type="text"
               placeholder="Enter your username"
               v-model="userData.username"
-              class="register-input"
+              class="register-input pl-10 pr-4"
             />
           </div>
         </div>
@@ -70,7 +70,7 @@ async function handleRegister(): Promise<void> {
               type="email"
               placeholder="Enter your email"
               v-model="userData.email"
-              class="register-input"
+              class="register-input pl-10 pr-4"
             />
           </div>
         </div>
@@ -85,7 +85,7 @@ async function handleRegister(): Promise<void> {
               type="password"
               placeholder="Enter your password"
               v-model="userData.password"
-              class="register-input"
+              class="register-input pl-10 pr-4"
             />
           </div>
         </div>

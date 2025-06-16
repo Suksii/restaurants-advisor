@@ -52,7 +52,7 @@ async function handleLogin() {
               type="text"
               placeholder="Enter your username"
               v-model="loginData.username"
-              class="register-input"
+              class="register-input pl-10 pr-4"
             />
           </div>
         </div>
@@ -66,7 +66,7 @@ async function handleLogin() {
               type="password"
               placeholder="Enter your password"
               v-model="loginData.password"
-              class="register-input"
+              class="register-input pl-10 pr-4"
             />
           </div>
         </div>
