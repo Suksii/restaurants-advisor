@@ -2,7 +2,7 @@ import { getCurrentUser, login, logout, register } from '@/services/auth'
 import { defineStore } from 'pinia'
 export const useUserStore = defineStore('user', {
   state: () => ({
-    currentUser: null as null | { username: string; role: 'user' | 'admin' },
+    currentUser: null as null | { username: string; email: string; role: 'user' | 'admin' },
   }),
   getters: {
     isGuest: (state) => !state.currentUser,

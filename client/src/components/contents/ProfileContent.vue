@@ -1,14 +1,18 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useAuth } from '@/composables/useAuth'
+
+const { currentUser } = useAuth()
+</script>
 
 <template>
   <div class="space-y-4">
-    <div>
+    <div v-if="currentUser">
       <label class="text-sm font-medium text-gray-700">Username</label>
-      <input class="input px-2" />
+      <input :placeholder="currentUser?.username" class="input px-2" />
     </div>
     <div>
       <label class="text-sm font-medium text-gray-700">Email</label>
-      <input class="input px-2" type="email" readonly />
+      <input class="input px-2" type="email" :placeholder="currentUser?.email" readonly />
     </div>
   </div>
   <div class="space-y-2 border-t pt-4">

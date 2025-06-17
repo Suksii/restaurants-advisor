@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { useAuth } from '@/composables/useAuth'
+import { useModal } from '@/composables/useModal'
 import UserIcon from '@/icons/UserIcon.vue'
 import { useUserStore } from '@/stores/userStore'
+import Modal from './Modal.vue'
+import ProfileContent from './contents/ProfileContent.vue'
 
 const userStore = useUserStore()
-console.log(userStore.currentUser)
+const { showModal, openModal, closeModal } = useModal()
 
 const { currentUser, isLoggedIn, isUser, isAdmin, isGuest } = useAuth()
 </script>
@@ -16,7 +19,13 @@ const { currentUser, isLoggedIn, isUser, isAdmin, isGuest } = useAuth()
     </div>
     <div class="flex justify-center items-center gap-12">
       <p v-if="isLoggedIn" class="text-gray-300">
-        Welcome, <span class="font-medium text-white">{{ currentUser?.username }}</span>
+        Welcome,
+        <span
+          class="font-medium text-white underline cursor-pointer hover:text-yellow-500 duration-200"
+          @click="openModal('profile')"
+        >
+          {{ currentUser?.username }}
+        </span>
       </p>
       <RouterLink
         to="/"
@@ -33,9 +42,16 @@ const { currentUser, isLoggedIn, isUser, isAdmin, isGuest } = useAuth()
         <span class="text-white font-medium">Sign out</span>
       </RouterLink>
       <div v-else class="flex gap-6 items-center">
-        <RouterLink to="/register" class="button register-button px-4 text-nowrap">Sign up</RouterLink
-        ><RouterLink to="/login" class="button register-button px-4 text-nowrap">Sign in</RouterLink>
+        <RouterLink to="/register" class="button register-button px-4 text-nowrap"
+          >Sign up</RouterLink
+        ><RouterLink to="/login" class="button register-button px-4 text-nowrap"
+          >Sign in</RouterLink
+        >
       </div>
     </div>
   </div>
+
+  <Modal v-if="showModal === 'profile'" title="Your profile" @close="closeModal">
+    <ProfileContent />
+  </Modal>
 </template>
