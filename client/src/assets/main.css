@@ -10,8 +10,12 @@
   @apply py-2 rounded-md text-center font-semibold transition-colors duration-300 cursor-pointer;
 }
 .register-button {
-  @apply bg-yellow-500 text-black hover:bg-yellow-400;
+  @apply bg-yellow-500 text-white hover:bg-yellow-400;
 }
 .logout-button {
   @apply bg-red-600 hover:bg-red-700;
+}
+
+.label {
+  @apply text-sm font-medium text-gray-700;
 }
