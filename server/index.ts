@@ -7,6 +7,7 @@ import { userRoute } from "./src/routes/UserRoute";
 import { errorHandler } from "./src/middleware/ErrorHandler";
 import connectDB from "./database/connection";
 import { clientOrigin, port } from "./utils/constants";
+import { restaurantRoute } from "./src/routes/RestaurantRoute";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.get("/", async (req: Request, res: Response) => {
 });
 
 app.use("/api/users", userRoute);
+app.use("/api/restaurants", restaurantRoute);
 
 app.use((err: any, req: Request, res: Response, next: express.NextFunction) => {
   errorHandler(err, req, res, next);

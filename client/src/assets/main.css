@@ -15,7 +15,6 @@
 .logout-button {
   @apply bg-red-600 hover:bg-red-700;
 }
-
 .label {
   @apply text-sm font-medium text-gray-700;
 }
