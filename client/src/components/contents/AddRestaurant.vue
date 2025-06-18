@@ -17,18 +17,27 @@ const restaurantData: RestaurantPayload = reactive({
   description: '',
 })
 
+const resetForm = (): void => {
+  restaurantData.name = ''
+  restaurantData.category = ''
+  restaurantData.location = ''
+  restaurantData.images = []
+  restaurantData.description = ''
+}
+
 const categories = ['Italian food', 'Chineese food', 'Mexican food']
 
 async function handleAdd() {
   try {
-    const { data } = await restaurantStore.addRestaurant({
+    const response = await restaurantStore.addRestaurant({
       name: restaurantData.name,
       images: ['Proba1'],
       description: restaurantData.description,
       location: restaurantData.location,
       category: restaurantData.category,
     })
-    notificationStore.notifySuccess(data?.message || 'Restaurant created successfully')
+    resetForm()
+    notificationStore.notifySuccess(response?.data?.message || 'Restaurant created successfully')
   } catch (error) {
     notificationStore.notifyError(getErrorMessage(error))
     console.error(getErrorMessage(error))
@@ -83,5 +92,4 @@ async function handleAdd() {
       <button class="button register-button">Add restaurant</button>
     </form>
   </div>
-  <button type="submit">Add it</button>
 </template>
