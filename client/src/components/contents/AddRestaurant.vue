@@ -1,25 +1,36 @@
 <script setup lang="ts">
 import PlusIcon from '@/icons/PlusIcon.vue'
+import { useNotificationStore } from '@/stores/notificationStore'
 import { useRestaurantStore } from '@/stores/restaurantStore.ts'
 import { getErrorMessage } from '@/utils/errorHandler'
-import { ref } from 'vue'
+import type { RestaurantPayload } from '@/utils/types'
+import { reactive, ref } from 'vue'
 
 const imageRef = ref<HTMLInputElement | null>(null)
 const restaurantStore = useRestaurantStore()
+const notificationStore = useNotificationStore()
+const restaurantData: RestaurantPayload = reactive({
+  name: '',
+  images: [],
+  location: '',
+  category: '',
+  description: '',
+})
 
 const categories = ['Italian food', 'Chineese food', 'Mexican food']
 
 async function handleAdd() {
   try {
-    const response = await restaurantStore.addRestaurant({
-      name: 'Proba',
+    const { data } = await restaurantStore.addRestaurant({
+      name: restaurantData.name,
       images: ['Proba1'],
-      description: 'Proba',
-      location: 'Proba',
-      category: 'Proba',
+      description: restaurantData.description,
+      location: restaurantData.location,
+      category: restaurantData.category,
     })
-    console.log(response)
+    notificationStore.notifySuccess(data?.message || 'Restaurant created successfully')
   } catch (error) {
+    notificationStore.notifyError(getErrorMessage(error))
     console.error(getErrorMessage(error))
   }
 }
@@ -28,7 +39,7 @@ async function handleAdd() {
 <template>
   <div class="flex flex-col justify-center items-center max-w-3xl mx-auto py-24">
     <h3 class="text-3xl font-medium">Add new restaurant</h3>
-    <form class="flex flex-col w-full space-y-4">
+    <form @submit.prevent="handleAdd" class="flex flex-col w-full space-y-4">
       <div>
         <label class="label">Upload images</label>
         <div class="flex items-center flex-wrap gap-2">
@@ -49,15 +60,16 @@ async function handleAdd() {
       </div>
       <div>
         <label class="label">Name</label>
-        <input class="input px-2" />
+        <input v-model="restaurantData.name" class="input px-2" />
       </div>
       <div>
         <label class="label">Location</label>
-        <input class="input px-2" />
+        <input v-model="restaurantData.location" class="input px-2" />
       </div>
       <div>
         <label class="label">Category</label>
         <select
+          v-model="restaurantData.category"
           class="w-full ring focus:ring-2 ring-gray-300 focus:outline-none focus:ring-yellow-500 py-2 rounded-md"
         >
           <option disabled>Select category</option>
@@ -66,10 +78,10 @@ async function handleAdd() {
       </div>
       <div>
         <label class="label">Description</label>
-        <textarea class="input px-2 min-h-32"></textarea>
+        <textarea v-model="restaurantData.description" class="input px-2 min-h-32"></textarea>
       </div>
       <button class="button register-button">Add restaurant</button>
     </form>
   </div>
-  <button @click="handleAdd">Add it</button>
+  <button type="submit">Add it</button>
 </template>
