@@ -1,10 +1,28 @@
 <script setup lang="ts">
 import PlusIcon from '@/icons/PlusIcon.vue'
+import { useRestaurantStore } from '@/stores/restaurantStore.ts'
+import { getErrorMessage } from '@/utils/errorHandler'
 import { ref } from 'vue'
 
 const imageRef = ref<HTMLInputElement | null>(null)
+const restaurantStore = useRestaurantStore()
 
 const categories = ['Italian food', 'Chineese food', 'Mexican food']
+
+async function handleAdd() {
+  try {
+    const response = await restaurantStore.addRestaurant({
+      name: 'Proba',
+      images: ['Proba1'],
+      description: 'Proba',
+      location: 'Proba',
+      category: 'Proba',
+    })
+    console.log(response)
+  } catch (error) {
+    console.error(getErrorMessage(error))
+  }
+}
 </script>
 
 <template>
@@ -53,4 +71,5 @@ const categories = ['Italian food', 'Chineese food', 'Mexican food']
       <button class="button register-button">Add restaurant</button>
     </form>
   </div>
+  <button @click="handleAdd">Add it</button>
 </template>

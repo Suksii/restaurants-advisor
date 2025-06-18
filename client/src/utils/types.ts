@@ -3,3 +3,10 @@ export type RegisterData = {
   email: string
   password: string
 }
+export type RestaurantPayload = {
+  name: string
+  description: string
+  location: string
+  category: string
+  images: string[]
+}
