@@ -8,6 +8,7 @@ import { restaurantRoute } from "./src/routes/RestaurantRoute";
 import { errorHandler } from "./src/middleware/ErrorHandler";
 import connectDB from "./database/connection";
 import { clientOrigin, port } from "./utils/constants";
+import { uploadRoute } from "./src/routes/UploadRoute";
 
 connectDB();
 const app = express();
@@ -22,6 +23,7 @@ app.get("/proba", (req: Request, res: Response) => {
 
 app.use("/api/users", userRoute);
 app.use("/api/restaurants", restaurantRoute);
+app.use("/api/upload", uploadRoute);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   errorHandler(err, req, res, next);
