@@ -12,7 +12,7 @@ export const getRestaurantsService = async (): Promise<AxiosResponse | undefined
   const response = await api.get('/restaurants')
   return response
 }
-export const getRestaurantService = async (id: number): Promise<AxiosResponse | undefined> => {
-  const response = await api.get('/restaurants' + id)
+export const getRestaurantService = async (id: string): Promise<AxiosResponse | undefined> => {
+  const response = await api.get('/restaurants/' + id)
   return response
 }

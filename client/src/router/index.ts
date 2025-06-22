@@ -25,7 +25,7 @@ const router = createRouter({
       component: () => import('../components/contents/AddRestaurant.vue'),
     },
     {
-      path: '/restaurant',
+      path: '/restaurant/:id',
       name: 'restaurant',
       component: () => import('../views/RestaurantView.vue'),
     },
