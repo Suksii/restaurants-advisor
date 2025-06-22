@@ -4,13 +4,14 @@ import StarIcon from '@/icons/StarIcon.vue'
 
 defineProps<{
   restaurant: {
-    id: string | number
-    image: string
+    _id: string | number
+    images: { secure_url: string; public_id: string }[]
     name: string
     category: string
     location: string
     rating: number
     description: string
+    user: { username: string; email: string; role: string }
   }
 }>()
 </script>
@@ -20,7 +21,7 @@ defineProps<{
     class="flex flex-col w-96 rounded-xl bg-white shadow-md border border-gray-200 overflow-hidden duration-200"
   >
     <img
-      :src="restaurant.image"
+      :src="restaurant.images[0].secure_url"
       :alt="restaurant.name"
       class="aspect-video object-cover w-full h-56"
     />
@@ -43,8 +44,8 @@ defineProps<{
             class="w-5 h-5"
           />
         </div>
-        <span class="ml-2 text-sm font-medium text-gray-700">{{
-          restaurant.rating.toFixed(1)
+        <span v-if="restaurant.rating" class="ml-2 text-sm font-medium text-gray-700">{{
+          Number(restaurant.rating.toFixed(1))
         }}</span>
       </div>
 
@@ -52,11 +53,12 @@ defineProps<{
         {{ restaurant.description }}
       </p>
 
-      <button
-        class="mt-2 bg-black text-white py-2 rounded-md text-sm font-semibold tracking-wide hover:bg-gray-800 transition-colors cursor-pointer"
+      <RouterLink
+        :to="`/restaurant/${restaurant._id}`"
+        class="mt-2 bg-black text-white py-2 rounded-md text-sm text-center font-semibold tracking-wide hover:bg-gray-800 transition-colors cursor-pointer"
       >
         See more
-      </button>
+      </RouterLink>
     </div>
   </div>
 </template>

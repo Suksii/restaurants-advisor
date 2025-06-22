@@ -5,7 +5,7 @@ import { defineStore } from 'pinia'
 export const useRestaurantStore = defineStore('restaurant', {
   state: () => ({
     restaurantData: null as RestaurantPayload | null,
-    restaurants: [] as RestaurantPayload[],
+    restaurants: [] as Restaurant[],
   }),
   actions: {
     async addRestaurant(payload: RestaurantPayload) {
@@ -15,7 +15,7 @@ export const useRestaurantStore = defineStore('restaurant', {
     },
     async getRestaurants() {
       const response = await getRestaurantsService()
-      this.restaurants = response?.data;
+      this.restaurants = response?.data || []
       return response
     },
   },
