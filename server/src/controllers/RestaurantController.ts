@@ -29,12 +29,12 @@ export const addRestaurant = async (
   }
 };
 export const getRestaurants = async (
-  res: Response,
   req: Request,
+  res: Response,
   next: NextFunction
 ) => {
   try {
-    const restaunrants = await Restaurant.find();
+    const restaunrants = await Restaurant.find().populate("user");
     res.status(200).json(restaunrants);
   } catch (error) {
     next();

@@ -8,3 +8,7 @@ export const addRestaurantService = async (
   const response = await api.post('/restaurants/add', payload)
   return response
 }
+export const getRestaurantsService = async (): Promise<AxiosResponse | undefined> => {
+  const response = await api.get('/restaurants')
+  return response
+}
