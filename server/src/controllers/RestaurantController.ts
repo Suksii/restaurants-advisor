@@ -28,3 +28,15 @@ export const addRestaurant = async (
     next();
   }
 };
+export const getRestaurants = async (
+  res: Response,
+  req: Request,
+  next: NextFunction
+) => {
+  try {
+    const restaunrants = await Restaurant.find();
+    res.status(200).json(restaunrants);
+  } catch (error) {
+    next();
+  }
+};
