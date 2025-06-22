@@ -10,3 +10,11 @@ export type RestaurantPayload = {
   category: string
   images: { secure_url: string; public_id: string }[]
 }
+export type Restaurant = {
+  name: string
+  description: string
+  location: string
+  category: string
+  images: { secure_url: string; public_id: string }[]
+  user: {}
+}
