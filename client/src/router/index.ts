@@ -24,6 +24,11 @@ const router = createRouter({
       name: 'admin',
       component: () => import('../components/contents/AddRestaurant.vue'),
     },
+    {
+      path: '/restaurant',
+      name: 'restaurant',
+      component: () => import('../views/RestaurantView.vue'),
+    },
   ],
 })
 router.beforeEach(async (to, from, next) => {

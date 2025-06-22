@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import Restaurant from "../models/Restaurant";
+import { CustomError } from "../../utils/customError";
 
 type AuthRequest = Request & { user?: any };
 
@@ -36,6 +37,20 @@ export const getRestaurants = async (
   try {
     const restaunrants = await Restaurant.find().populate("user");
     res.status(200).json(restaunrants);
+  } catch (error) {
+    next();
+  }
+};
+export const getRestaurant = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const restaurant = await Restaurant.findById(id).populate("user");
+    if (!restaurant) throw new CustomError("Restaurant not found", 404);
+    res.status(200).json(restaurant);
   } catch (error) {
     next();
   }
