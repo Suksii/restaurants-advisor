@@ -8,5 +8,5 @@ export type RestaurantPayload = {
   description: string
   location: string
   category: string
-  images: string[]
+  images: { secure_url: string; public_id: string }[]
 }

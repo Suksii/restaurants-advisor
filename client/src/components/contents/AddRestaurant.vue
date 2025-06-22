@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import PlusIcon from '@/icons/PlusIcon.vue'
+import { uploadImages } from '@/services/upload'
 import { useNotificationStore } from '@/stores/notificationStore'
 import { useRestaurantStore } from '@/stores/restaurantStore.ts'
 import { getErrorMessage } from '@/utils/errorHandler'
@@ -25,13 +26,40 @@ const resetForm = (): void => {
   restaurantData.description = ''
 }
 
+async function handleUpload(event: Event) {
+  const target = event.target as HTMLInputElement
+  const files = target.files
+  if (!files || files.length === 0) return
+  if (restaurantData.images.length + files.length > 10) {
+    notificationStore.notifyError('You can upload a maximum of 10 images')
+    return
+  }
+  const formData = new FormData()
+  for (let i = 0; i < files.length; i++) {
+    formData.append('images', files[i])
+  }
+  try {
+    const uploadedImages = await uploadImages(formData)
+    uploadedImages.forEach((image: any) => {
+      restaurantData.images.push({
+        secure_url: image.secure_url,
+        public_id: image.public_id,
+      })
+    })
+    console.log(uploadedImages)
+  } catch (error) {
+    notificationStore.notifyError(getErrorMessage(error as Error))
+    console.error(error)
+  }
+}
+
 const categories = ['Italian food', 'Chineese food', 'Mexican food']
 
 async function handleAdd() {
   try {
     const response = await restaurantStore.addRestaurant({
       name: restaurantData.name,
-      images: ['Proba1'],
+      images: restaurantData.images,
       description: restaurantData.description,
       location: restaurantData.location,
       category: restaurantData.category,
@@ -57,12 +85,12 @@ async function handleAdd() {
             @click="imageRef?.click()"
           >
             <PlusIcon class="text-gray-400" />
-            <input type="file" ref="imageRef" class="hidden" />
+            <input type="file" ref="imageRef" class="hidden" @change="handleUpload" multiple />
           </div>
           <img
-            v-for="n in 12"
-            :key="n"
-            src="../../assets//restaurant-bg.jpeg"
+            v-for="(image, index) in restaurantData.images"
+            :key="index"
+            :src="image.secure_url"
             class="w-24 h-24 object-cover rounded"
           />
         </div>
@@ -81,7 +109,7 @@ async function handleAdd() {
           v-model="restaurantData.category"
           class="w-full ring focus:ring-2 ring-gray-300 focus:outline-none focus:ring-yellow-500 py-2 rounded-md"
         >
-          <option disabled>Select category</option>
+          <option disabled :selected="!restaurantData.category">Select category</option>
           <option v-for="option of categories" :key="option" :value="option">{{ option }}</option>
         </select>
       </div>
