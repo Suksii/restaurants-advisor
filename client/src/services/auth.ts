@@ -23,3 +23,8 @@ export const register = async (credentials: {
 export const logout = async () => {
   await api.post(`/users/logout`)
 }
+
+export const deactivate = async (id: number | string) => {
+  const { data } = await api.patch(`/users/${id}/deactivate`)
+  return data
+}
