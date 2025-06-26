@@ -92,3 +92,30 @@ export const logoutUser = (
     next(error);
   }
 };
+
+export const deactivateAcount = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findByIdAndUpdate(
+      id,
+      {
+        isActive: false,
+      },
+      { new: true }
+    );
+    if (!user) throw new CustomError("User not found", 404);
+
+    if (!user.isActive)
+      throw new CustomError("Account has already been deactivated", 400);
+
+    return res
+      .status(200)
+      .json({ message: "Account deactivated successfully" });
+  } catch (error) {
+    next(error);
+  }
+};

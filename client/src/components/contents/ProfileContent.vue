@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { useAuth } from '@/composables/useAuth'
+import { ref } from 'vue';
 
 const { currentUser } = useAuth()
+
+const deactivateAccountOptions = ref(false)
 </script>
 
 <template>
@@ -25,6 +28,17 @@ const { currentUser } = useAuth()
     </div>
   </div>
   <div class="border-t pt-4">
-    <button class="button logout-button w-full text-white">Deactivate Account</button>
+    <button
+      v-if="!deactivateAccountOptions"
+      @click="deactivateAccountOptions = true"
+      class="button logout-button w-full text-white"
+    >
+      Deactivate Account
+    </button>
+    <div v-else class="flex items-center gap-1">
+      <p>Are you sure that you want to delete account?</p>
+      <button @click="deactivateAccountOptions = false" class="button logout-button w-44 text-white">No</button>
+      <button class="button register-button w-44 text-white">Yes</button>
+    </div>
   </div>
 </template>
