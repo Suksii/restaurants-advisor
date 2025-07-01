@@ -13,6 +13,6 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.get("/profile", authenticateUser, getCurrentUser);
-router.get("/:id/deactivate", authenticateUser, deactivateAcount);
+router.patch("/:id/deactivate", authenticateUser, deactivateAcount);
 
 export const userRoute = router;

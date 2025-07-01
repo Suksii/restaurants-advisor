@@ -1,10 +1,27 @@
 <script setup lang="ts">
 import { useAuth } from '@/composables/useAuth'
-import { ref } from 'vue';
+import { deactivate } from '@/services/auth'
+import { getErrorMessage } from '@/utils/errorHandler'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const { currentUser } = useAuth()
-
+const router = useRouter()
 const deactivateAccountOptions = ref(false)
+
+async function deactivateAccount() {
+  try {
+    if (currentUser.value?._id !== undefined) {
+      const response = await deactivate(currentUser.value._id)
+      router.push('/login')
+      console.log(response, currentUser.value._id)
+    } else {
+      throw new Error('User ID is undefined')
+    }
+  } catch (error) {
+    console.error(getErrorMessage(error))
+  }
+}
 </script>
 
 <template>
@@ -37,8 +54,13 @@ const deactivateAccountOptions = ref(false)
     </button>
     <div v-else class="flex items-center gap-1">
       <p>Are you sure that you want to delete account?</p>
-      <button @click="deactivateAccountOptions = false" class="button logout-button w-44 text-white">No</button>
-      <button class="button register-button w-44 text-white">Yes</button>
+      <button
+        @click="deactivateAccountOptions = false"
+        class="button logout-button w-44 text-white"
+      >
+        No
+      </button>
+      <button @click="deactivateAccount" class="button register-button w-44 text-white">Yes</button>
     </div>
   </div>
 </template>

@@ -55,6 +55,9 @@ export const loginUser = async (
     const user = await User.findOne({ username });
     if (!user) throw new CustomError("User doesn't exist", 404);
 
+    if (!user.isActive)
+      throw new CustomError("Your account has been deactivated", 403);
+
     const passMatch = bcrypt.compareSync(password, user.password);
     if (!passMatch) throw new CustomError("Password isn't valid", 406);
 
