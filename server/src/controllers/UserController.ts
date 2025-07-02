@@ -103,17 +103,14 @@ export const deactivateAcount = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const user = await User.findByIdAndUpdate(
-      id,
-      {
-        isActive: false,
-      },
-      { new: true }
-    );
+    const user = await User.findById(id);
     if (!user) throw new CustomError("User not found", 404);
 
     if (!user.isActive)
       throw new CustomError("Account has already been deactivated", 400);
+
+    user.isActive = false;
+    await user.save();
 
     res.status(200).json({ message: "Account deactivated successfully" });
   } catch (error) {
