@@ -2,7 +2,7 @@
 import LockIcon from '@/icons/LockIcon.vue'
 import loginBg from '../assets/loginbg.jpg'
 import UserIcon from '@/icons/UserIcon.vue'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useNotificationStore } from '@/stores/notificationStore'
 import { getErrorMessage } from '@/utils/errorHandler'
@@ -16,6 +16,7 @@ const loginData = reactive({
   username: '',
   password: '',
 })
+const isDeactivated = ref(false)
 
 async function handleLogin() {
   try {
@@ -25,8 +26,7 @@ async function handleLogin() {
     })
     notificationStore.notifySuccess(user.message || 'Login successful')
     router.push('/')
-    console.log(user);
-    
+    console.log(user)
   } catch (error) {
     notificationStore.notifyError(getErrorMessage(error))
     console.error(getErrorMessage(error))
@@ -82,6 +82,13 @@ async function handleLogin() {
             Sign up
           </RouterLink>
         </p>
+
+        <div v-if="isDeactivated">
+          <p class="text-red-600 mt-2">Your account is deactivated.</p>
+          <button @click="reactivateAccount" class="mt-2 px-4 py-2 bg-green-600 text-white rounded">
+            Reactivate Account
+          </button>
+        </div>
       </form>
     </div>
   </div>

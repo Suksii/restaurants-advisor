@@ -28,3 +28,8 @@ export const deactivate = async (id: number | string) => {
   const { data } = await api.patch(`/users/${id}/deactivate`)
   return data
 }
+
+export const reactivate = async (id: number | string) => {
+  const { data } = await api.patch(`/users/${id}/activate`)
+  return data
+}
