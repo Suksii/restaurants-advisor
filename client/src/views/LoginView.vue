@@ -25,6 +25,8 @@ async function handleLogin() {
     })
     notificationStore.notifySuccess(user.message || 'Login successful')
     router.push('/')
+    console.log(user);
+    
   } catch (error) {
     notificationStore.notifyError(getErrorMessage(error))
     console.error(getErrorMessage(error))

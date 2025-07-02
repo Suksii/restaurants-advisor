@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  activateAcount,
   deactivateAcount,
   loginUser,
   logoutUser,
@@ -14,5 +15,6 @@ router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.get("/profile", authenticateUser, getCurrentUser);
 router.patch("/:id/deactivate", authenticateUser, deactivateAcount);
+router.patch("/:id/activate", authenticateUser, activateAcount);
 
 export const userRoute = router;

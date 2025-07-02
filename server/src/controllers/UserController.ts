@@ -117,3 +117,28 @@ export const deactivateAcount = async (
     next(error);
   }
 };
+
+export const activateAcount = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+      throw new CustomError("User not found", 404);
+    }
+
+    if (user.isActive) {
+      throw new CustomError("Account is already active", 400);
+    }
+
+    user.isActive = true;
+    await user.save();
+
+    res.status(200).json({ message: "Account reactivated successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
