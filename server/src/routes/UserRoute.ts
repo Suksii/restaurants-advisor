@@ -15,6 +15,6 @@ router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.get("/profile", authenticateUser, getCurrentUser);
 router.patch("/:id/deactivate", authenticateUser, deactivateAcount);
-router.patch("/:id/activate", authenticateUser, activateAcount);
+router.patch("/:id/activate", activateAcount);
 
 export const userRoute = router;

@@ -55,8 +55,14 @@ export const loginUser = async (
     const user = await User.findOne({ username });
     if (!user) throw new CustomError("User doesn't exist", 404);
 
-    if (!user.isActive)
-      throw new CustomError("Your account has been deactivated", 403);
+    if (!user.isActive) {
+      res.status(403).json({
+        user,
+        message: "Your account has been deactivated",
+        isDeactivated: true,
+      });
+      return;
+    }
 
     const passMatch = bcrypt.compareSync(password, user.password);
     if (!passMatch) throw new CustomError("Password isn't valid", 406);
@@ -139,6 +145,8 @@ export const activateAcount = async (
 
     res.status(200).json({ message: "Account reactivated successfully" });
   } catch (error) {
+    console.log("Activate error", error);
+
     next(error);
   }
 };

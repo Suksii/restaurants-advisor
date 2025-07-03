@@ -7,6 +7,7 @@ import { useRouter } from 'vue-router'
 import { useNotificationStore } from '@/stores/notificationStore'
 import { getErrorMessage } from '@/utils/errorHandler'
 import { useUserStore } from '@/stores/userStore'
+import { reactivate } from '@/services/auth'
 
 const router = useRouter()
 const notificationStore = useNotificationStore()
@@ -17,16 +18,49 @@ const loginData = reactive({
   password: '',
 })
 const isDeactivated = ref(false)
+const deactivatedUserId = ref<string | number | null>(null)
 
 async function handleLogin() {
   try {
-    const user = await userStore.loginUser({
+    const { user, message } = await userStore.loginUser({
       username: loginData.username,
       password: loginData.password,
     })
-    notificationStore.notifySuccess(user.message || 'Login successful')
-    router.push('/')
     console.log(user)
+
+    if (user && user.isActive === false) {
+      isDeactivated.value = true
+      deactivatedUserId.value = user._id
+      notificationStore.notifyError('Your account is deactivated')
+      return
+    }
+    notificationStore.notifySuccess(message || 'Login successful')
+    router.push('/')
+  } catch (error: any) {
+    const errorMessage: string | undefined = getErrorMessage(error)
+    const responseUserId = error?.response?.data?.user._id
+
+    if (errorMessage && errorMessage.includes('deactivated')) {
+      isDeactivated.value = true
+      deactivatedUserId.value = responseUserId
+      return
+    } else {
+      notificationStore.notifyError(getErrorMessage(error))
+    }
+  }
+}
+async function handleReactivate() {
+  if (!deactivatedUserId.value) {
+    notificationStore.notifyError('User ID missing - cannot reactivate account.')
+    return
+  }
+  try {
+    await reactivate(deactivatedUserId.value)
+    notificationStore.notifySuccess('Account reactivated. Logging you in…')
+
+    isDeactivated.value = false
+    deactivatedUserId.value = null
+    await handleLogin()
   } catch (error) {
     notificationStore.notifyError(getErrorMessage(error))
     console.error(getErrorMessage(error))
@@ -82,10 +116,9 @@ async function handleLogin() {
             Sign up
           </RouterLink>
         </p>
-
-        <div v-if="isDeactivated">
+        <div v-if="isDeactivated" class="flex flex-col text-center items-center justify-center">
           <p class="text-red-600 mt-2">Your account is deactivated.</p>
-          <button @click="reactivateAccount" class="mt-2 px-4 py-2 bg-green-600 text-white rounded">
+          <button @click="handleReactivate" class="px-2 mt-4 button bg-green-600 text-white">
             Reactivate Account
           </button>
         </div>
