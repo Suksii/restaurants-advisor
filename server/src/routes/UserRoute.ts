@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   activateAcount,
+  changePassword,
   deactivateAcount,
   loginUser,
   logoutUser,
@@ -16,5 +17,6 @@ router.post("/logout", logoutUser);
 router.get("/profile", authenticateUser, getCurrentUser);
 router.patch("/:id/deactivate", authenticateUser, deactivateAcount);
 router.patch("/:id/activate", activateAcount);
+router.patch("/:id/changePassword", changePassword);
 
 export const userRoute = router;

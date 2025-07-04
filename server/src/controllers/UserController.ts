@@ -146,7 +146,34 @@ export const activateAcount = async (
     res.status(200).json({ message: "Account reactivated successfully" });
   } catch (error) {
     console.log("Activate error", error);
-
     next(error);
+  }
+};
+
+export const changePassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const { currentPassword, newPassword } = req.body;
+    const user = await User.findById(id);
+    if (!user) {
+      throw new CustomError("User not found", 404);
+    }
+    if (!currentPassword || !newPassword) {
+      throw new CustomError("Both current and new passwords are required", 400);
+    }
+    const isMatch = bcrypt.compareSync(currentPassword, user.password);
+    if (!isMatch) {
+      throw new CustomError("Current password is incorrect", 401);
+    }
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(newPassword, salt);
+    user.password = hashedPassword;
+    await user.save();
+  } catch (error) {
+    next();
   }
 };
