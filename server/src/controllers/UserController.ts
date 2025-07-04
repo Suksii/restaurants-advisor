@@ -174,6 +174,6 @@ export const changePassword = async (
     user.password = hashedPassword;
     await user.save();
   } catch (error) {
-    next();
+    next(error);
   }
 };

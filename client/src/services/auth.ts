@@ -33,3 +33,15 @@ export const reactivate = async (id: number | string) => {
   const { data } = await api.patch(`/users/${id}/activate`)
   return data
 }
+
+export const changePassword = async (
+  id: number | string,
+  currentPassword: string,
+  newPassword: string,
+) => {
+  const { data } = await api.patch(`/users/${id}/changePassword`, {
+    currentPassword,
+    newPassword,
+  })
+  return data
+}
