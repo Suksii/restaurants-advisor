@@ -169,10 +169,19 @@ export const changePassword = async (
     if (!isMatch) {
       throw new CustomError("Current password is incorrect", 401);
     }
+    const isSame = bcrypt.compareSync(newPassword, user.password);
+    if (isSame) {
+      throw new CustomError(
+        "New password must be different from the current one",
+        400
+      );
+    }
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(newPassword, salt);
     user.password = hashedPassword;
     await user.save();
+
+    res.status(200).json({ message: "Password changed successfully" });
   } catch (error) {
     next(error);
   }

@@ -5,6 +5,9 @@ import SearchIcon from '@/icons/SearchIcon.vue'
 import RestaurantCard from '@/components/RestaurantCard.vue'
 import CloseIcon from '@/icons/CloseIcon.vue'
 import RestaurantList from '@/components/RestaurantList.vue'
+import AdminIcon from '@/icons/AdminIcon.vue'
+import { ref } from 'vue'
+import AdminSidebar from '@/components/AdminSidebar.vue'
 
 // const restaurant = {
 //   id: 1,
@@ -16,9 +19,20 @@ import RestaurantList from '@/components/RestaurantList.vue'
 //   description:
 //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 // }
+
+const isSidebarOpened = ref(false)
 </script>
 
 <template>
+  <button
+    @click="isSidebarOpened = !isSidebarOpened"
+    class="fixed top-0 left-12 m-4 p-4 bg-blue-950 ring-2 ring-white z-50 rounded-full cursor-pointer"
+  >
+    <AdminIcon class="text-white" />
+  </button>
+  <div class="fixed top-24 z-50 duration-300">
+    <AdminSidebar :isOpened="isSidebarOpened" />
+  </div>
   <div
     :style="{ backgroundImage: `url(${bgImage})` }"
     class="h-[700px] bg-center bg-cover bg-no-repeat relative"
