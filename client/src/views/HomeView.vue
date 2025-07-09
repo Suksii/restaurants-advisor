@@ -2,7 +2,6 @@
 import Navbar from '@/components/Navbar.vue'
 import bgImage from '@/assets/restaurant-bg.jpeg'
 import SearchIcon from '@/icons/SearchIcon.vue'
-import RestaurantCard from '@/components/RestaurantCard.vue'
 import CloseIcon from '@/icons/CloseIcon.vue'
 import RestaurantList from '@/components/RestaurantList.vue'
 import AdminIcon from '@/icons/AdminIcon.vue'

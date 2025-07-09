@@ -29,6 +29,11 @@ const router = createRouter({
       name: 'restaurant',
       component: () => import('../views/RestaurantView.vue'),
     },
+    {
+      path: '/users',
+      name: 'restaurant',
+      component: () => import('../views/UsersTable.vue'),
+    },
   ],
 })
 router.beforeEach(async (to, from, next) => {
