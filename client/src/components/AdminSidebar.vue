@@ -18,11 +18,11 @@ const sidebarMenu = [
     name: 'Restaurants',
     subitems: [
       {
-        id: 2131234,
+        id: 'Restaurants-1',
         name: 'Add restaurant',
       },
       {
-        id: 213213,
+        id: 'Restaurants-2',
         name: 'View restaurants',
       },
     ],

@@ -3,6 +3,7 @@ import {
   activateAcount,
   changePassword,
   deactivateAcount,
+  getUsers,
   loginUser,
   logoutUser,
   registerUser,
@@ -15,6 +16,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.get("/profile", authenticateUser, getCurrentUser);
+router.get("/", authenticateUser, getUsers);
 router.patch("/:id/deactivate", authenticateUser, deactivateAcount);
 router.patch("/:id/activate", activateAcount);
 router.patch("/:id/changePassword", changePassword);

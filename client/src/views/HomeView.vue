@@ -8,23 +8,15 @@ import RestaurantList from '@/components/RestaurantList.vue'
 import AdminIcon from '@/icons/AdminIcon.vue'
 import { ref } from 'vue'
 import AdminSidebar from '@/components/AdminSidebar.vue'
-
-// const restaurant = {
-//   id: 1,
-//   image: bgImage,
-//   name: 'La Tavola',
-//   category: 'Italijan kitchen',
-//   location: 'Podgorica',
-//   rating: 4.2,
-//   description:
-//     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-// }
+import { useAuth } from '@/composables/useAuth'
 
 const isSidebarOpened = ref(false)
+const { isAdmin } = useAuth()
 </script>
 
 <template>
   <button
+    v-if="isAdmin"
     @click="isSidebarOpened = !isSidebarOpened"
     class="fixed top-0 left-12 m-4 p-4 bg-blue-950 ring-2 ring-white z-50 rounded-full cursor-pointer"
   >
