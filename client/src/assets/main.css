@@ -1,5 +1,11 @@
 @import 'tailwindcss';
 
+:root {
+  --ag-row-height: 42px;
+  --ag-header-height: 48px;
+  --ag-list-item-height: 24px;
+}
+
 .input {
   @apply w-full py-2 rounded-md text-black placeholder-gray-400 focus:outline-none focus:ring-2 ring ring-gray-300 focus:ring-yellow-500;
 }

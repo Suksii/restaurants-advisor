@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import ArrowLeftIcon from '@/icons/ArrowLeftIcon.vue'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router';
 
 const props = defineProps<{
   isOpened: boolean
 }>()
 
 const showSubmenuId = ref<number | null>(null)
+const router = useRouter()
 
 const sidebarMenu = [
   {
@@ -20,10 +22,12 @@ const sidebarMenu = [
       {
         id: 'Restaurants-1',
         name: 'Add restaurant',
+        link: ''
       },
       {
         id: 'Restaurants-2',
         name: 'View restaurants',
+        link: ''
       },
     ],
   },
@@ -38,10 +42,12 @@ const sidebarMenu = [
       {
         id: 231314,
         name: 'Add user',
+        link: ''
       },
       {
         id: 231314123,
         name: 'View users',
+        link: '/users'
       },
     ],
   },
@@ -96,6 +102,7 @@ const sidebarMenu = [
             <ul>
               <li
                 v-for="subitem in item.subitems"
+                @click="subitem?.link && router.push(subitem?.link)"
                 class="w-full p-4 rounded-lg text-lg font-medium transition hover:bg-white hover:text-blue-950 cursor-pointer"
               >
                 {{ subitem.name }}

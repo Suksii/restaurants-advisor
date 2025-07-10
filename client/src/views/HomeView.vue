@@ -29,7 +29,6 @@ const { isAdmin } = useAuth()
     class="h-[700px] bg-center bg-cover bg-no-repeat relative"
   >
     <div class="absolute inset-0 bg-black/60"></div>
-
     <div class="container mx-auto pt-12 relative z-10">
       <Navbar />
     </div>
