@@ -50,3 +50,8 @@ export const getUsers = async () => {
   const { data } = await api.get('/users')
   return data
 }
+
+export const getUser = async (id: number | undefined) => {
+  const { data } = await api.get(`/users/${id}`)
+  return data
+}
