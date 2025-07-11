@@ -4,6 +4,7 @@ import { getErrorMessage } from '@/utils/errorHandler'
 import { AgGridVue } from 'ag-grid-vue3'
 import { onMounted, ref } from 'vue'
 import { themeQuartz } from 'ag-grid-community'
+import ActionRenderer from '@/components/tableCells/ActionRenderer.vue'
 
 const rowData = ref([])
 
@@ -22,12 +23,25 @@ const columnDefs = ref([
   { field: 'username', headerName: 'Username' },
   { field: 'email', headerName: 'Email' },
   { field: 'role', headerName: 'Role' },
+  {
+    field: 'akcije',
+    headerName: 'Akcije',
+    cellRenderer: ActionRenderer,
+    suppressMovable: true,
+    suppressFiltersToolPanel: true,
+    suppressColumnsToolPanel: true,
+    suppressHeaderMenuButton: true,
+    filter: false,
+    sortable: false,
+    pinned: 'right',
+  },
 ])
 
 const defaultColDef = {
   sortable: true,
   filter: true,
   resizable: true,
+  minWidth: 100,
   flex: 1,
 }
 </script>
