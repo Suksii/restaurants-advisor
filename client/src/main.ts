@@ -1,8 +1,7 @@
 import './assets/main.css'
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'
 
-import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'; 
-
-ModuleRegistry.registerModules([AllCommunityModule]);
+ModuleRegistry.registerModules([AllCommunityModule])
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

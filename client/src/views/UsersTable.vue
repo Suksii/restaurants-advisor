@@ -2,8 +2,9 @@
 import { getUsers } from '@/services/auth'
 import { getErrorMessage } from '@/utils/errorHandler'
 import { AgGridVue } from 'ag-grid-vue3'
-import { onMounted, ref } from 'vue'
 import { themeQuartz } from 'ag-grid-community'
+import 'ag-grid-enterprise'
+import { onMounted, ref } from 'vue'
 import ActionRenderer from '@/components/tableCells/ActionRenderer.vue'
 
 const rowData = ref([])
@@ -44,18 +45,37 @@ const defaultColDef = {
   minWidth: 100,
   flex: 1,
 }
+
+const sideBarConfig = {
+  toolPanels: [
+    {
+      id: 'columns',
+      labelDefault: 'Columns',
+      labelKey: 'columns',
+      iconKey: 'columns',
+      toolPanel: 'agColumnsToolPanel',
+      toolPanelParams: {
+        suppressRowGroups: true,
+        suppressValues: true,
+        suppressPivotMode: true,
+      },
+    },
+  ],
+  defaultToolPanel: 'columns',
+}
 </script>
 
 <template>
   <section class="min-h-screen flex items-center justify-center p-2">
     <div class="w-full max-w-7xl h-[600px] overflow-hidden">
       <AgGridVue
-        class="ag-theme-custom w-full h-full"
+        class="ag-theme-quartz w-full h-full"
         :theme="themeQuartz"
         :rowData="rowData"
         :columnDefs="columnDefs"
         :defaultColDef="defaultColDef"
         :animateRows="true"
+        :sideBar="sideBarConfig"
       />
     </div>
   </section>

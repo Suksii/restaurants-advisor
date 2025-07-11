@@ -199,3 +199,21 @@ export const getUsers = async (
     next(error);
   }
 };
+
+export const getUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findById(id);
+    if (!user) {
+      throw new CustomError("User not found", 404);
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
