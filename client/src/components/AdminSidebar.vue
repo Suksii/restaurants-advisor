@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ArrowLeftIcon from '@/icons/ArrowLeftIcon.vue'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 
 const props = defineProps<{
   isOpened: boolean
@@ -22,12 +22,12 @@ const sidebarMenu = [
       {
         id: 'Restaurants-1',
         name: 'Add restaurant',
-        link: ''
+        link: '',
       },
       {
         id: 'Restaurants-2',
         name: 'View restaurants',
-        link: ''
+        link: '/restaurants',
       },
     ],
   },
@@ -42,12 +42,12 @@ const sidebarMenu = [
       {
         id: 231314,
         name: 'Add user',
-        link: ''
+        link: '',
       },
       {
         id: 231314123,
         name: 'View users',
-        link: '/users'
+        link: '/users',
       },
     ],
   },
@@ -67,7 +67,9 @@ const sidebarMenu = [
         : 'max-h-0 opacity-0 scale-95 -translate-x-4 pointer-events-none'
     "
   >
-    <div class="p-5 w-full text-2xl font-bold tracking-wide border-b border-sidebar-hover text-center">
+    <div
+      class="p-5 w-full text-2xl font-bold tracking-wide border-b border-sidebar-hover text-center"
+    >
       Admin Panel
     </div>
     <nav class="flex-1 p-2 w-full">

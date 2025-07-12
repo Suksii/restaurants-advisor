@@ -4,7 +4,7 @@ import EyeIcon from '@/icons/EyeIcon.vue'
 import TrashIcon from '@/icons/TrashIcon.vue'
 import Modal from '../Modal.vue'
 import { useModal } from '@/composables/useModal'
-import { ref, Teleport } from 'vue'
+import { ref } from 'vue'
 import UserContent from '../contents/UserContent.vue'
 
 const props = defineProps(['params'])

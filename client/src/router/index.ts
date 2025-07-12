@@ -31,8 +31,13 @@ const router = createRouter({
     },
     {
       path: '/users',
-      name: 'restaurant',
-      component: () => import('../views/UsersTable.vue'),
+      name: 'users',
+      component: () => import('../views/UsersTableView.vue'),
+    },
+    {
+      path: '/restaurants',
+      name: 'restaurants',
+      component: () => import('../views/RestaurantsTableView.vue'),
     },
   ],
 })
