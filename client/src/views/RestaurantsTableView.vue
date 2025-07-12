@@ -29,6 +29,9 @@ const columnDefs = ref([
     filter: false,
     sortable: false,
     pinned: 'right',
+    cellRendererParams: {
+      tableName: 'restaurants',
+    },
   },
 ])
 </script>

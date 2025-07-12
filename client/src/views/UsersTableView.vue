@@ -1,16 +1,24 @@
-<script setup>
+<script setup lang="ts">
 import { getUsers } from '@/services/auth'
 import { getErrorMessage } from '@/utils/errorHandler'
 import { onMounted, ref } from 'vue'
 import ActionRenderer from '@/components/tableCells/ActionRenderer.vue'
 import TableGrid from '@/components/TableGrid.vue'
 
-const rowData = ref([])
+type UserDataType = {
+  _id: string
+  username: string
+  email: string
+  role: string
+  isActive: boolean
+}
+
+const userData = ref<UserDataType[]>([])
 
 onMounted(async () => {
   try {
     const response = await getUsers()
-    rowData.value = response
+    userData.value = response
   } catch (error) {
     console.error(getErrorMessage(error))
   }
@@ -33,10 +41,13 @@ const columnDefs = ref([
     filter: false,
     sortable: false,
     pinned: 'right',
+    cellRendererParams: {
+      tableName: 'users',
+    },
   },
 ])
 </script>
 
 <template>
-  <TableGrid :columnDefs="columnDefs" :rowData="rowData" />
+  <TableGrid :columnDefs="columnDefs" :rowData="userData" />
 </template>
