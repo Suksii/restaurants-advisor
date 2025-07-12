@@ -37,7 +37,9 @@ const handleEdit = () => {
     <div title="View">
       <EyeIcon class="text-gray-700 cursor-pointer" @click.stop="handleView" />
       <div v-if="showModal !== null">
-        <Modal @close="closeModal"> <UserContent :user="rowData" /></Modal>
+        <Modal @close="closeModal">
+          <UserContent v-if="rowData" :user="rowData" />
+        </Modal>
       </div>
     </div>
     <div title="Delete">

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useModal } from '@/composables/useModal';
 import CloseIcon from '@/icons/CloseIcon.vue'
 import { Teleport } from 'vue'
 
