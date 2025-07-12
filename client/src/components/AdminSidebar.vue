@@ -60,14 +60,14 @@ const sidebarMenu = [
 
 <template>
   <aside
-    class="w-72 bg-blue-950 text-white rounded-2xl m-4 overflow-hidden shadow-2xl transition-all duration-300 ease-in-out origin-left relative"
+    class="w-72 bg-sidebar text-white rounded-2xl m-4 overflow-hidden shadow-2xl transition-all duration-300 ease-in-out origin-left relative"
     :class="
       isOpened
         ? 'max-h-[500px] opacity-100 scale-100 translate-x-0'
         : 'max-h-0 opacity-0 scale-95 -translate-x-4 pointer-events-none'
     "
   >
-    <div class="p-5 w-full text-2xl font-bold tracking-wide border-b border-blue-600 text-center">
+    <div class="p-5 w-full text-2xl font-bold tracking-wide border-b border-sidebar-hover text-center">
       Admin Panel
     </div>
     <nav class="flex-1 p-2 w-full">
@@ -76,13 +76,13 @@ const sidebarMenu = [
           v-for="item in sidebarMenu"
           :key="item.id"
           @click="showSubmenuId = item.id"
-          class="w-full p-4 rounded-lg text-lg font-medium transition hover:bg-white hover:text-blue-950 cursor-pointer"
+          class="w-full p-4 rounded-lg text-lg font-medium transition hover:bg-sidebar-hover cursor-pointer"
         >
           {{ item.name }}
 
           <div
             v-if="item.subitems"
-            class="absolute inset-0 bg-blue-950 text-white rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 ease-in-out origin-left z-20"
+            class="absolute inset-0 bg-sidebar text-white rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 ease-in-out origin-left z-20"
             :class="
               showSubmenuId === item.id
                 ? 'opacity-100 scale-100 translate-x-0'
@@ -90,7 +90,7 @@ const sidebarMenu = [
             "
           >
             <div
-              class="p-5 w-full text-2xl font-bold tracking-wide border-b border-blue-600 text-center"
+              class="p-5 w-full text-2xl font-bold tracking-wide border-b border-sidebar-hover text-center"
             >
               <div class="flex justify-between items-center">
                 <p>{{ item.name }}</p>
@@ -103,7 +103,7 @@ const sidebarMenu = [
               <li
                 v-for="subitem in item.subitems"
                 @click="subitem?.link && router.push(subitem?.link)"
-                class="w-full p-4 rounded-lg text-lg font-medium transition hover:bg-white hover:text-blue-950 cursor-pointer"
+                class="w-full p-4 rounded-lg text-lg font-medium transition hover:bg-sidebar-hover cursor-pointer"
               >
                 {{ subitem.name }}
               </li>

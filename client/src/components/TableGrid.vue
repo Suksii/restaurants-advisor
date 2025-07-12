@@ -15,23 +15,6 @@ const defaultColDef = {
   minWidth: 100,
   flex: 1,
 }
-const sideBarConfig = {
-  toolPanels: [
-    {
-      id: 'columns',
-      labelDefault: 'Columns',
-      labelKey: 'columns',
-      iconKey: 'columns',
-      toolPanel: 'agColumnsToolPanel',
-      toolPanelParams: {
-        suppressRowGroups: true,
-        suppressValues: true,
-        suppressPivotMode: true,
-      },
-    },
-  ],
-  defaultToolPanel: 'columns',
-}
 </script>
 
 <template>
@@ -41,7 +24,6 @@ const sideBarConfig = {
         class="ag-theme-quartz w-full h-full"
         :theme="themeQuartz"
         :defaultColDef="defaultColDef"
-        :sideBar="sideBarConfig"
         :animateRows="true"
         :columnDefs="columnDefs"
         :rowData="rowData"

@@ -62,16 +62,16 @@ async function handleChangePassword() {
 <template>
   <div class="space-y-4">
     <div v-if="currentUser">
-      <label class="text-sm font-medium text-gray-700">Username</label>
+      <label class="text-sm font-medium text-text">Username</label>
       <input :placeholder="currentUser?.username" class="input px-2" />
     </div>
     <div>
-      <label class="text-sm font-medium text-gray-700">Email</label>
+      <label class="text-sm font-medium text-text">Email</label>
       <input class="input px-2" type="email" :placeholder="currentUser?.email" readonly />
     </div>
   </div>
   <div class="space-y-2 border-t pt-4">
-    <p class="text-gray-700 font-semibold">Change Password</p>
+    <p class="text-text font-semibold">Change Password</p>
     <input
       type="password"
       v-model="currentPassword"

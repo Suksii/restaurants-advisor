@@ -4,26 +4,9 @@ import bgImage from '@/assets/restaurant-bg.jpeg'
 import SearchIcon from '@/icons/SearchIcon.vue'
 import CloseIcon from '@/icons/CloseIcon.vue'
 import RestaurantList from '@/components/RestaurantList.vue'
-import AdminIcon from '@/icons/AdminIcon.vue'
-import { ref } from 'vue'
-import AdminSidebar from '@/components/AdminSidebar.vue'
-import { useAuth } from '@/composables/useAuth'
-
-const isSidebarOpened = ref(false)
-const { isAdmin } = useAuth()
 </script>
 
 <template>
-  <button
-    v-if="isAdmin"
-    @click="isSidebarOpened = !isSidebarOpened"
-    class="fixed top-0 left-12 m-4 p-4 bg-blue-950 ring-2 ring-white z-50 rounded-full cursor-pointer"
-  >
-    <AdminIcon class="text-white" />
-  </button>
-  <div class="fixed top-24 z-50 duration-300">
-    <AdminSidebar :isOpened="isSidebarOpened" />
-  </div>
   <div
     :style="{ backgroundImage: `url(${bgImage})` }"
     class="h-[700px] bg-center bg-cover bg-no-repeat relative"
@@ -48,7 +31,7 @@ const { isAdmin } = useAuth()
       </div>
     </div>
   </div>
-  <div class="flex justify-center m-24">
+  <div class="flex justify-center p-24">
     <!-- <RestaurantCard :restaurant="restaurant" /> -->
     <RestaurantList />
   </div>

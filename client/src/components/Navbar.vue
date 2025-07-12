@@ -13,7 +13,7 @@ const { currentUser, isLoggedIn, isUser, isAdmin, isGuest } = useAuth()
 </script>
 
 <template>
-  <div class="bg-black flex items-center justify-between px-12">
+  <div class="bg-navbar flex items-center justify-between px-12">
     <div>
       <img src="../assets/restaurant-logo.png" class="w-28 h-28" />
     </div>
@@ -21,7 +21,7 @@ const { currentUser, isLoggedIn, isUser, isAdmin, isGuest } = useAuth()
       <p v-if="isLoggedIn" class="text-gray-300">
         Welcome,
         <span
-          class="font-medium text-white underline cursor-pointer hover:text-yellow-500 duration-200"
+          class="font-medium text-primary hover:text-primary-hover underline cursor-pointer hover:text-navbar-hover duration-200"
           @click="openModal('profile')"
         >
           {{ currentUser?.username }}
@@ -29,14 +29,14 @@ const { currentUser, isLoggedIn, isUser, isAdmin, isGuest } = useAuth()
       </p>
       <RouterLink
         to="/"
-        class="text-white text-lg cursor-pointer hover:text-yellow-500 duration-300"
+        class="text-primary text-lg cursor-pointer hover:text-primary-hover duration-300"
         >Home</RouterLink
       >
       <RouterLink
         v-if="isLoggedIn"
         to="/login"
         @click="userStore.logoutUser"
-        class="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition duration-200"
+        class="flex items-center gap-2 px-4 py-2 bg-danger hover:bg-danger-hover rounded-lg transition duration-200"
       >
         <UserIcon class="w-5 h-5 text-white" />
         <span class="text-white font-medium">Sign out</span>
