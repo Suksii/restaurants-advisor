@@ -18,6 +18,7 @@ const columnDefs = ref([
   { field: 'category', headerName: 'Category' },
   { field: 'location', headerName: 'Location' },
   { field: 'rating', headerName: 'Rating' },
+  { field: 'images', headerName: 'Images', hide: true },
   {
     field: 'akcije',
     headerName: 'Akcije',

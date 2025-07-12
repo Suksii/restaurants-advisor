@@ -12,19 +12,19 @@ defineProps<{
 
 <template>
   <div class="space-y-4">
-    <h2 class="text-xl font-semibold text-gray-800 border-b pb-2">User details</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
+    <h2 class="text-2xl font-bold text-text border-b border-border pb-3">User details</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
       <div>
-        <span class="font-medium text-gray-900">ID:</span>
-        <div class="truncate">{{ user._id }}</div>
+        <span class="font-medium text-text-muted">ID:</span>
+        <div class="truncate text-text">{{ user._id }}</div>
       </div>
       <div>
-        <span class="font-medium text-gray-900">Status:</span>
+        <span class="font-medium text-text-muted">Status:</span>
         <div>
           <span
             :class="[
               'inline-block px-2 py-0.5 rounded-full text-xs font-semibold',
-              user.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700',
+              user.isActive ? 'text-white bg-success' : 'bg-danger text-white',
             ]"
           >
             {{ user.isActive ? 'Active' : 'Inactive' }}
@@ -32,15 +32,15 @@ defineProps<{
         </div>
       </div>
       <div>
-        <span class="font-medium text-gray-900">Username:</span>
-        <div>{{ user.username }}</div>
+        <span class="font-medium text-text-muted">Username:</span>
+        <div class="text-text">{{ user.username }}</div>
       </div>
       <div>
-        <span class="font-medium text-gray-900">Email:</span>
-        <div>{{ user.email }}</div>
+        <span class="font-medium text-text-muted">Email:</span>
+        <div class="text-text">{{ user.email }}</div>
       </div>
       <div>
-        <span class="font-medium text-gray-900">Role:</span>
+        <span class="font-medium text-text-muted">Role:</span>
         <div class="capitalize">{{ user.role }}</div>
       </div>
     </div>
