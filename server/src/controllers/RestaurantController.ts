@@ -52,6 +52,20 @@ export const getRestaurant = async (
     if (!restaurant) throw new CustomError("Restaurant not found", 404);
     res.status(200).json(restaurant);
   } catch (error) {
-    next();
+    next(error);
+  }
+};
+
+export const deleteRestaurant = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    await Restaurant.findByIdAndDelete(id);
+    res.status(200).json({ message: "Restaurant deleted successfully" });
+  } catch (error) {
+    next(error);
   }
 };

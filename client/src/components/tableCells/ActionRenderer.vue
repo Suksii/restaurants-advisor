@@ -23,6 +23,8 @@ const handleView = () => {
 }
 const handleDelete = () => {
   const data = props.params.data
+  const tableName = props.params?.tableName
+
   console.log('Handle Delete', data)
 }
 const handleEdit = () => {

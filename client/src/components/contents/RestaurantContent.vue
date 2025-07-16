@@ -55,7 +55,7 @@ defineProps<{
           :key="index"
           :src="image.secure_url"
           alt="restaurant image"
-          class="w-36 h-24 object-cover rounded-lg border border-gray-300 shadow-sm flex-shrink-0 hover:scale-105 transition-transform duration-300"
+          class="w-46 aspect-video object-cover rounded-lg border border-gray-300 shadow-sm flex-shrink-0"
         />
       </div>
     </div>
