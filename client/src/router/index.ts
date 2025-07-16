@@ -20,8 +20,8 @@ const router = createRouter({
       component: () => import('../views/LoginView.vue'),
     },
     {
-      path: '/admin',
-      name: 'admin',
+      path: '/add-restaurant',
+      name: 'addRestaurant',
       component: () => import('../components/contents/AddRestaurant.vue'),
     },
     {

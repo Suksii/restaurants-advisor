@@ -6,26 +6,27 @@ import Modal from '../Modal.vue'
 import { useModal } from '@/composables/useModal'
 import { ref } from 'vue'
 import { useComponentToRender } from '@/composables/useComponentToRender'
+import { useDeleteActions } from '@/composables/useDeleteAction'
 
 const props = defineProps(['params'])
+const emit = defineEmits(['reload'])
 const { openModal, showModal, closeModal } = useModal()
 const { componentToRender, componentProps, setComponent } = useComponentToRender()
+const { deleteByTable } = useDeleteActions()
 const rowData = ref<any>(null)
 
 const handleView = () => {
-  const data = props.params.data
-  const tableName = props.params?.tableName
+  const { data, tableName } = props?.params
   console.log(data, tableName)
 
   rowData.value = data
   setComponent(tableName, data)
   openModal(data)
 }
-const handleDelete = () => {
-  const data = props.params.data
-  const tableName = props.params?.tableName
-
-  console.log('Handle Delete', data)
+const handleDelete = async () => {
+  const { data, tableName } = props?.params
+  console.log('Handle Delete', data, tableName)
+  await deleteByTable(tableName, data._id)
 }
 const handleEdit = () => {
   const data = props.params.data

@@ -22,7 +22,7 @@ const sidebarMenu = [
       {
         id: 'Restaurants-1',
         name: 'Add restaurant',
-        link: '',
+        link: '/add-restaurant',
       },
       {
         id: 'Restaurants-2',

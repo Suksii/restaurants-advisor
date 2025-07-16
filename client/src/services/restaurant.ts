@@ -16,3 +16,7 @@ export const getRestaurantService = async (id: string): Promise<AxiosResponse | 
   const response = await api.get('/restaurants/' + id)
   return response
 }
+export const deleteRestaurantService = async (id: string): Promise<AxiosResponse | undefined> => {
+  const response = await api.delete('/restaurants/delete/' + id)
+  return response
+}
