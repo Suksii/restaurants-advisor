@@ -1,5 +1,10 @@
 import { ref } from 'vue'
 
+type ModalType = {
+  type: string
+  payload?: any
+}
+
 export function useModal<T = any>() {
   const showModal = ref<T | null>(null)
 

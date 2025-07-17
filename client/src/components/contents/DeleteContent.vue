@@ -4,18 +4,16 @@ const emit = defineEmits(['cancelDelete', 'confirmDelete'])
 </script>
 
 <template>
-  <div class="p-4">
-    <h2 class="text-lg font-semibold mb-4">
-      Are you sure that you want to delete this {{ props.item }}
+  <div class="">
+    <h2 class="text-lg py-6">
+      Are you sure that you want to delete <b>{{ props.item }}</b
+      >?
     </h2>
     <div class="flex justify-end gap-2">
-      <button class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400" @click="emit('cancelDelete')">
+      <button class="button bg-secondary text-white px-4" @click="emit('cancelDelete')">
         Cancel
       </button>
-      <button
-        class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-        @click="emit('confirmDelete')"
-      >
+      <button class="button logout-button px-4 text-white" @click="emit('confirmDelete')">
         Delete
       </button>
     </div>
