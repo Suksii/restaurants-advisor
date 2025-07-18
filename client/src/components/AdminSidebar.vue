@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import ArrowLeftIcon from '@/icons/ArrowLeftIcon.vue'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 const props = defineProps<{
   isOpened: boolean
 }>()
-
+const emit = defineEmits<{
+  (event: 'update:isOpened', value: boolean): void
+}>()
 const showSubmenuId = ref<number | null>(null)
-const router = useRouter()
+
+const closeSidebar = () => {
+  emit('update:isOpened', false)
+  showSubmenuId.value = null
+}
 
 const sidebarMenu = [
   {
@@ -104,10 +109,12 @@ const sidebarMenu = [
             <ul>
               <li
                 v-for="subitem in item.subitems"
-                @click="subitem?.link && router.push(subitem?.link)"
+                @click="closeSidebar"
                 class="w-full p-4 rounded-lg text-lg font-medium transition hover:bg-sidebar-hover cursor-pointer"
               >
-                {{ subitem.name }}
+                <RouterLink v-if="subitem?.link" :to="subitem.link">
+                  {{ subitem.name }}
+                </RouterLink>
               </li>
             </ul>
           </div>

@@ -20,7 +20,7 @@ const { isAdmin } = useAuth()
       <AdminIcon class="text-white" />
     </button>
     <div class="fixed top-24 z-50 duration-300">
-      <AdminSidebar :isOpened="isSidebarOpened" />
+      <AdminSidebar v-model:isOpened="isSidebarOpened" />
     </div>
     <RouterView />
     <Notification />

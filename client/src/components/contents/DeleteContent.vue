@@ -10,7 +10,7 @@ const emit = defineEmits(['cancelDelete', 'confirmDelete'])
       >?
     </h2>
     <div class="flex justify-end gap-2">
-      <button class="button bg-secondary text-white px-4" @click="emit('cancelDelete')">
+      <button class="button px-4 bg-secondary text-white" @click="emit('cancelDelete')">
         Cancel
       </button>
       <button class="button logout-button px-4 text-white" @click="emit('confirmDelete')">
