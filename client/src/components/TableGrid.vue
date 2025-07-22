@@ -27,6 +27,8 @@ const defaultColDef = {
         :animateRows="true"
         :columnDefs="columnDefs"
         :rowData="rowData"
+        :pagination="true"
+        :paginationPageSize="10"
       />
     </div>
   </section>
