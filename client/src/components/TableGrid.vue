@@ -29,6 +29,7 @@ const defaultColDef = {
         :rowData="rowData"
         :pagination="true"
         :paginationPageSize="10"
+        :paginationPageSizeSelector="[5, 10, 20]"
       />
     </div>
   </section>

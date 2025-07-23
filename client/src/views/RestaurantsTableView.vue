@@ -8,9 +8,9 @@ const restaurantStore = useRestaurantStore()
 
 onMounted(async () => {
   await restaurantStore.getRestaurants()
+  console.log(restaurantStore.restaurants)
 })
 
-console.log(restaurantStore.restaurants)
 
 const columnDefs = ref([
   { field: '_id', headerName: 'ID' },
@@ -18,7 +18,7 @@ const columnDefs = ref([
   { field: 'category', headerName: 'Category' },
   { field: 'location', headerName: 'Location' },
   { field: 'rating', headerName: 'Rating' },
-  { field: 'images', headerName: 'Images', hide: true },
+  // { field: 'images', headerName: 'Images', hide: true },
   {
     field: 'akcije',
     headerName: 'Akcije',

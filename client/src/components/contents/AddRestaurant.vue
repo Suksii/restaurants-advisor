@@ -6,7 +6,9 @@ import { useRestaurantStore } from '@/stores/restaurantStore.ts'
 import { getErrorMessage } from '@/utils/errorHandler'
 import type { RestaurantPayload } from '@/utils/types'
 import { reactive, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const imageRef = ref<HTMLInputElement | null>(null)
 const restaurantStore = useRestaurantStore()
 const notificationStore = useNotificationStore()
@@ -17,6 +19,7 @@ const restaurantData: RestaurantPayload = reactive({
   category: '',
   description: '',
 })
+const { id } = route.params
 
 const resetForm = (): void => {
   restaurantData.name = ''
@@ -75,7 +78,7 @@ async function handleAdd() {
 
 <template>
   <div class="flex flex-col justify-center items-center max-w-3xl mx-auto py-24">
-    <h3 class="text-3xl font-medium">Add new restaurant</h3>
+    <h3 class="text-3xl font-medium">{{ id ? 'Edit this restaurant' : 'Add new restaurant' }}</h3>
     <form @submit.prevent="handleAdd" class="flex flex-col w-full space-y-4">
       <div>
         <label class="label">Upload images</label>

@@ -8,7 +8,9 @@ import { computed, ref } from 'vue'
 import { useComponentToRender } from '@/composables/useComponentToRender'
 import { useDeleteActions } from '@/composables/useDeleteAction'
 import DeleteContent from '../contents/DeleteContent.vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const props = defineProps(['params'])
 const emit = defineEmits(['reload'])
 const { openModal, showModal, closeModal } = useModal()
@@ -20,7 +22,7 @@ const data = computed(() => props.params.data)
 const tableName = computed(() => props.params.tableName)
 
 const handleView = () => {
-  rowData.value = data
+  rowData.value = data.value
   setComponent(tableName.value, data.value)
   currentModal.value = 'view'
   openModal(data.value)
@@ -36,7 +38,7 @@ const handleDelete = async () => {
   closeModal()
 }
 const handleEdit = () => {
-  console.log('Handle Edit', data.value)
+  router.push({ path: `/update-restaurant/${data.value._id}` })
 }
 function closeAll() {
   currentModal.value = null
@@ -58,11 +60,7 @@ function closeAll() {
       <TrashIcon class="text-red-700 cursor-pointer" @click.stop="handleOpenDeleteModal" />
       <div v-if="currentModal === 'delete'">
         <Modal @close="closeAll">
-          <DeleteContent
-            @cancelDelete="closeAll"
-            @confirmDelete="handleDelete"
-            :item="data.name"
-          />
+          <DeleteContent @cancelDelete="closeAll" @confirmDelete="handleDelete" :item="data.name" />
         </Modal>
       </div>
     </div>

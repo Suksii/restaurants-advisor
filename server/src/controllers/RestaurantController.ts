@@ -69,3 +69,27 @@ export const deleteRestaurant = async (
     next(error);
   }
 };
+
+export const updateRestaurant = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const { name, images, description, category, location } = req.body;
+    const updatedRestaurant = await Restaurant.findByIdAndUpdate(id, {
+      name,
+      images,
+      description,
+      category,
+      location,
+    });
+    res.status(200).json({
+      restaurant: updatedRestaurant,
+      message: "Restaurant updated successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};

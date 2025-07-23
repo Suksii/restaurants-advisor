@@ -24,6 +24,12 @@ const router = createRouter({
       name: 'addRestaurant',
       component: () => import('../components/contents/AddRestaurant.vue'),
     },
+
+    {
+      path: '/update-restaurant/:id',
+      name: 'updateRestaurant',
+      component: () => import('../components/contents/AddRestaurant.vue'),
+    },
     {
       path: '/restaurant/:id',
       name: 'restaurant',
